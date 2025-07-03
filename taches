@@ -1,0 +1,35 @@
+' === Gestionnaire de tâches Excel automatisé ===
+' Projet : Mini gestionnaire de tâches avec priorités, échéances et état
+' Auteur : Aimé Babacar Basse
+
+Sub AjouterTache()
+    Dim ligne As Long
+    ligne = Sheets("Tâches").Cells(Rows.Count, 1).End(xlUp).Row + 1
+
+    Sheets("Tâches").Cells(ligne, 1).Value = InputBox("Nom de la tâche :")
+    Sheets("Tâches").Cells(ligne, 2).Value = InputBox("Date d'échéance (JJ/MM/AAAA) :")
+    Sheets("Tâches").Cells(ligne, 3).Value = InputBox("Priorité (Haute / Moyenne / Basse) :")
+    Sheets("Tâches").Cells(ligne, 4).Value = "En cours"
+End Sub
+
+Sub TerminerTache()
+    Dim ligne As Long
+    ligne = InputBox("Entrez le numéro de ligne de la tâche terminée :")
+    If ligne > 1 Then
+        Sheets("Tâches").Cells(ligne, 4).Value = "Terminée"
+    End If
+End Sub
+
+Sub SupprimerTache()
+    Dim ligne As Long
+    ligne = InputBox("Entrez le numéro de ligne de la tâche à supprimer :")
+    If ligne > 1 Then
+        Sheets("Tâches").Rows(ligne).Delete
+    End If
+End Sub
+
+Sub FiltrerParPriorite()
+    Dim priorite As String
+    priorite = InputBox("Filtrer par priorité (Haute / Moyenne / Basse) :")
+    Sheets("Tâches").Range("A1:D1").AutoFilter Field:=3, Criteria1:=priorite
+End Sub
